@@ -40,6 +40,22 @@ def test_01_gateway_health_and_database_per_service_isolation(client: httpx.Clie
         assert svc_health["status"] == "healthy"
         assert svc_health["database"] == "connected"
 
+    # Verify Gateway unified Swagger UI & OpenAPI schema aggregate all 8 services (including Delivery & Ratings)
+    docs_resp = client.get("/docs")
+    assert docs_resp.status_code == 200
+    assert "swagger-ui" in docs_resp.text.lower()
+
+    openapi_resp = client.get("/openapi.json")
+    assert openapi_resp.status_code == 200
+    openapi_paths = openapi_resp.json()["paths"]
+    assert "/api/v1/orders/{id}/assign-agent" in openapi_paths
+    assert "/api/v1/orders/agent" in openapi_paths
+    assert "/api/v1/orders/{id}/delivery-status" in openapi_paths
+    assert "/api/v1/orders/{id}/rating" in openapi_paths
+    assert "/api/v1/auth/login" in openapi_paths
+    assert "/api/v1/restaurants/{id}/menu" in openapi_paths
+    assert "/api/v1/reports/restaurant-sales" in openapi_paths
+
     # Verify each of the 8 databases exists separately and ONLY contains its own domain tables
     expected_tables = {
         "auth": {"auth_credentials", "login_audit_logs"},
