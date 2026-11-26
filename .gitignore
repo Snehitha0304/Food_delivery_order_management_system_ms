@@ -1,0 +1,42 @@
+# Environment & Secrets
+.env
+*.env
+!.env.example
+**/.env
+!**/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Local SQLite databases & temp files
+databases/*.db
+databases/*.db-journal
+databases/*.db-wal
+*.sqlite
+*.sqlite3
+*.log
+
+# Node / React Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/.vite/
+npm-debug.log*
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

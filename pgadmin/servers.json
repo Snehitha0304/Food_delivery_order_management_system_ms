@@ -1,0 +1,76 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "01 - Auth Service DB (auth_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "auth-db",
+      "Port": 5432,
+      "MaintenanceDB": "auth_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "2": {
+      "Name": "02 - User Service DB (user_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "user-db",
+      "Port": 5432,
+      "MaintenanceDB": "user_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "3": {
+      "Name": "03 - Restaurant Service DB (restaurant_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "restaurant-db",
+      "Port": 5432,
+      "MaintenanceDB": "restaurant_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "4": {
+      "Name": "04 - Menu Service DB (menu_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "menu-db",
+      "Port": 5432,
+      "MaintenanceDB": "menu_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "5": {
+      "Name": "05 - Order Service DB (order_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "order-db",
+      "Port": 5432,
+      "MaintenanceDB": "order_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "6": {
+      "Name": "06 - Delivery Service DB (delivery_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "delivery-db",
+      "Port": 5432,
+      "MaintenanceDB": "delivery_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "7": {
+      "Name": "07 - Rating Service DB (rating_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "rating-db",
+      "Port": 5432,
+      "MaintenanceDB": "rating_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    },
+    "8": {
+      "Name": "08 - Report Service DB (report_db)",
+      "Group": "Food Delivery Microservices",
+      "Host": "report-db",
+      "Port": 5432,
+      "MaintenanceDB": "report_db",
+      "Username": "postgres",
+      "SSLMode": "prefer"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = ["databases", "frontend", ".pytest_cache", "**/__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+
+[tool.coverage.run]
+branch = false
+omit = ["*/tests/*", "*/alembic/*", "*/run.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
