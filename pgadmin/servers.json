@@ -1,74 +1,74 @@
 {
   "Servers": {
     "1": {
-      "Name": "01 - Auth Service DB (auth_db)",
+      "Name": "01 - Auth Service DB (auth_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "auth-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "auth_db",
+      "MaintenanceDB": "auth_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "2": {
-      "Name": "02 - User Service DB (user_db)",
+      "Name": "02 - User Service DB (user_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "user-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "user_db",
+      "MaintenanceDB": "user_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "3": {
-      "Name": "03 - Restaurant Service DB (restaurant_db)",
+      "Name": "03 - Restaurant Service DB (restaurant_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "restaurant-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "restaurant_db",
+      "MaintenanceDB": "restaurant_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "4": {
-      "Name": "04 - Menu Service DB (menu_db)",
+      "Name": "04 - Menu Service DB (menu_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "menu-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "menu_db",
+      "MaintenanceDB": "menu_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "5": {
-      "Name": "05 - Order Service DB (order_db)",
+      "Name": "05 - Order Service DB (order_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "order-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "order_db",
+      "MaintenanceDB": "order_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "6": {
-      "Name": "06 - Delivery Service DB (delivery_db)",
+      "Name": "06 - Delivery Service DB (delivery_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "delivery-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "delivery_db",
+      "MaintenanceDB": "delivery_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "7": {
-      "Name": "07 - Rating Service DB (rating_db)",
+      "Name": "07 - Rating Service DB (rating_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "rating-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "rating_db",
+      "MaintenanceDB": "rating_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     },
     "8": {
-      "Name": "08 - Report Service DB (report_db)",
+      "Name": "08 - Report Service DB (report_service_db)",
       "Group": "Food Delivery Microservices",
-      "Host": "report-db",
+      "Host": "localhost",
       "Port": 5432,
-      "MaintenanceDB": "report_db",
+      "MaintenanceDB": "report_service_db",
       "Username": "postgres",
       "SSLMode": "prefer"
     }

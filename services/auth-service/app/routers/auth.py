@@ -26,6 +26,46 @@ def register_customer(data: UserRegister, db: Session = Depends(get_db)):
     "/login",
     response_model=Token,
     summary="Log in with email/password (supports JSON body and OAuth2 form)",
+    openapi_extra={
+        "requestBody": {
+            "required": True,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "required": ["email", "password"],
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "format": "email",
+                                "example": "admin@fooddelivery.com",
+                            },
+                            "password": {
+                                "type": "string",
+                                "example": "Admin@123",
+                            },
+                        },
+                    }
+                },
+                "application/x-www-form-urlencoded": {
+                    "schema": {
+                        "type": "object",
+                        "required": ["username", "password"],
+                        "properties": {
+                            "username": {
+                                "type": "string",
+                                "example": "admin@fooddelivery.com",
+                            },
+                            "password": {
+                                "type": "string",
+                                "example": "Admin@123",
+                            },
+                        },
+                    }
+                },
+            },
+        }
+    },
 )
 async def login(request: Request, db: Session = Depends(get_db)):
     content_type = request.headers.get("content-type", "")

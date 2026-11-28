@@ -15,6 +15,25 @@ MICROSERVICE_SPECS: List[Tuple[str, str]] = [
     ("report-service", settings.REPORT_SERVICE_URL),
 ]
 
+SERVICE_DISPLAY_NAMES: Dict[str, str] = {
+    "auth-service": "Auth Service (8008)",
+    "user-service": "User Service (8001)",
+    "restaurant-service": "Restaurant Service (8002)",
+    "menu-service": "Menu Service (8007)",
+    "order-service": "Order Service (8003)",
+    "delivery-service": "Delivery Service (8004)",
+    "rating-service": "Rating Service (8005)",
+    "report-service": "Report Service (8006)",
+}
+
+SERVICE_SWAGGER_URLS: List[Dict[str, str]] = [
+    {"name": "All Microservices (Unified)", "url": "/openapi.json"},
+    *[
+        {"name": SERVICE_DISPLAY_NAMES[name], "url": f"/openapi/{name}.json"}
+        for name, _url in MICROSERVICE_SPECS
+    ],
+]
+
 ORDERED_TAGS = [
     {"name": "Gateway Health", "description": "Aggregated health status across all 8 microservices"},
     {"name": "Authentication", "description": "Registration, Login & Admin User Onboarding (auth-service)"},
@@ -95,7 +114,54 @@ async def build_aggregated_openapi(gateway_schema: Dict[str, Any]) -> Dict[str, 
             if schema_name not in merged["components"]["schemas"]:
                 merged["components"]["schemas"][schema_name] = schema_def
         for sec_name, sec_def in components.get("securitySchemes", {}).items():
-            if sec_name not in merged["components"]["securitySchemes"]:
+            if sec_name not in merged["components"]["schemas"] and sec_name not in merged["components"]["securitySchemes"]:
                 merged["components"]["securitySchemes"][sec_name] = sec_def
 
     return merged
+
+
+async def build_service_openapi(service_name: str) -> Dict[str, Any] | None:
+    """Fetch a single microservice's public OpenAPI schema (excluding /internal/*)."""
+    specs_map = dict(MICROSERVICE_SPECS)
+    base_url = specs_map.get(service_name)
+    if not base_url:
+        return None
+
+    async with httpx.AsyncClient(timeout=5.0) as client:
+        _, spec = await _fetch_service_openapi(client, service_name, base_url)
+    if not spec:
+        return None
+
+    filtered_paths: Dict[str, Any] = {
+        path: methods
+        for path, methods in spec.get("paths", {}).items()
+        if path.startswith("/api/v1/") and path != "/api/v1/health"
+    }
+    components = dict(spec.get("components", {}))
+    security_schemes = dict(components.get("securitySchemes", {}))
+    security_schemes.setdefault(
+        "OAuth2PasswordBearer",
+        {
+            "type": "oauth2",
+            "flows": {
+                "password": {
+                    "scopes": {},
+                    "tokenUrl": "/api/v1/auth/login",
+                }
+            },
+        },
+    )
+    components["securitySchemes"] = security_schemes
+
+    return {
+        "openapi": spec.get("openapi", "3.1.0"),
+        "info": spec.get(
+            "info",
+            {
+                "title": SERVICE_DISPLAY_NAMES.get(service_name, service_name),
+                "version": settings.VERSION,
+            },
+        ),
+        "paths": filtered_paths,
+        "components": components,
+    }
